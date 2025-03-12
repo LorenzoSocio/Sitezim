@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Mundo do Código Binário</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+        }
+        header {
+            background-color: #111;
+            padding: 60px 20px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        main {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        section {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            margin: 40px 0;
+            border-radius: 20px;
+            text-align: left;
+            transition: transform 0.3s ease-in-out;
+        }
+        section:hover {
+            transform: scale(1.02);
+        }
+        .balloon {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-size: 18px;
+            line-height: 1.6;
+            opacity: 0.9;
+            text-align: left;
+        }
+        h1, h2, h3 {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        button {
+            background-color: #0071e3;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+        button:hover {
+            background-color: #005bb5;
+        }
+        input {
+            padding: 15px;
+            font-size: 18px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            text-align: center;
+            width: 60px;
+        }
+        #binaryAnimation {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #00ffcc;
+        }
+        footer {
+            background-color: #111;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+        .media-container {
+            margin: 40px 0;
+        }
+        .media-container img, .media-container video {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .media-container img:hover, .media-container video:hover {
+            transform: scale(1.05);
+        }
+        /* Estilo do contador binário */
+        #binaryCounter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 30px 0;
+        }
+        #binaryCounter input {
+            width: 60px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            animation: changeBit 0.5s ease-in-out;
+        }
+        @keyframes changeBit {
+            0% { background-color: #444; }
+            50% { background-color: #00ffcc; }
+            100% { background-color: #444; }
+        }
+        #binaryResultManual {
+            font-size: 22px;
+            font-weight: bold;
+            color: #00ffcc;
+        }
+        /* Adicionando estilo para a seção dos criadores */
+        #creators {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #creators p {
+            font-size: 20px;
+            color: #aaa;
+        }
+        #creators h3 {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+   </style>
+</head>
+<body>
+    <header>
+        <h1>O Mundo do Código Binário</h1>
+        <p>Uma abordagem minimalista e elegante para entender o binário</p>
+    </header>
+    <main>
+        <section id="explanation">
+            <h2>O que é Código Binário?</h2>
+            <p>O código binário é a base da computação. Ele utiliza apenas dois números: 0 e 1. Os computadores processam dados por meio de circuitos eletrônicos que reconhecem apenas esses dois estados, permitindo a representação de qualquer informação digital.</p>
+            <div class="balloon">📌 O sistema binário é um sistema numérico de base 2, diferente do sistema decimal, que é de base 10.</div>
+            <div class="balloon">📌 Cada 0 e 1 representa um bit, a menor unidade de informação computacional.</div>
+            <div class="balloon">📌 Conjuntos de 8 bits formam um byte, que pode armazenar um único caractere, como a letra "A".</div>
+            <div class="balloon">📌 O código binário é utilizado em diversas áreas, como redes, criptografia e imagens digitais.</div>
+            <div class="balloon">📌 A base do código binário é fundamental para o funcionamento de processadores, memória RAM e sistemas operacionais.</div>
+            <div class="balloon">📌 Os computadores modernos operam com múltiplos bits, como 32 ou 64 bits, para aumentar a capacidade de processamento.</div>
+        </section>
+
+        <section id="converter">
+            <h2>Conversor Binário</h2>
+            <input type="number" id="decimal" placeholder="Digite um número">
+            <button onclick="convertToBinary()">Converter</button>
+            <p>Resultado: <span id="binaryResult">...</span></p>
+        </section>
+
+        <section id="animation">
+            <h2>Visualização Binária</h2>
+            <p>Veja uma sequência binária aleatória:</p>
+            <button onclick="generateBinaryAnimation()">Gerar</button>
+            <div id="binaryAnimation"></div>
+        </section>
+
+        
+        
+        
+        
+        
+        
+        <section id="binaryCounterSection">
+            <h2>Contador Binário Animado</h2>
+            <div id="binaryCounter">
+                <input type="number" min="0" max="1" value="0" id="bit7" onchange="updateBinaryCounter()">
+                <input type="number" min="0" max="1" value="0" id="bit6" onchange="updateBinaryCounter()">
+                <input type="number" min="0" max="1" value="0" id="bit5" onchange="updateBinaryCounter()">
+                <input type="number" min="0" max="1" value="0" id="bit4" onchange="updateBinaryCounter()">
+                <input type="number" min="0" max="1" value="0" id="bit3" onchange="updateBinaryCounter()">
+                <input type="number" min="0" max="1" value="0" id="bit2" onchange="updateBinaryCounter()">
+                <input type="number" min="0" max="1" value="0" id="bit1" onchange="updateBinaryCounter()">
+                <input type="number" min="0" max="1" value="0" id="bit0" onchange="updateBinaryCounter()">
+            </div>
+            <p>Binário: <span id="binaryResultManual">00000000</span></p>
+            <p>Decimal: <span id="decimalResultManual">0</span></p>
+        </section>
+        
+        <script>
+            function updateBinaryCounter() {
+                let binaryString = "";
+                for (let i = 7; i >= 0; i--) {
+                    let bit = document.getElementById(`bit${i}`).value;
+                    binaryString += bit === "1" ? "1" : "0";
+                }
+                document.getElementById("binaryResultManual").innerText = binaryString;
+                document.getElementById("decimalResultManual").innerText = parseInt(binaryString, 2);
+            }
+        
+            function convertToBinary() {
+                let decimal = document.getElementById("decimal").value;
+                let binaryResult = parseInt(decimal).toString(2);
+                document.getElementById("binaryResult").innerText = binaryResult;
+            }
+
+            function generateBinaryAnimation() {
+                let animation = "";
+                for (let i = 0; i < 16; i++) {
+                    animation += Math.round(Math.random()) + " ";
+                }
+                document.getElementById("binaryAnimation").innerText = animation;
+            }
+        </script>
+
+<style>
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #000;
+        color: #fff;
+        text-align: center;
+    }
+    header {
+        background-color: #111;
+        padding: 60px 20px;
+        font-size: 30px;
+        font-weight: bold;
+    }
+    main {
+        padding: 60px 20px;
+        max-width: 1200px;
+        margin: auto;
+    }
+    section {
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 40px;
+        margin: 40px 0;
+        border-radius: 20px;
+        text-align: left;
+        transition: transform 0.3s ease-in-out;
+    }
+    section:hover {
+        transform: scale(1.02);
+    }
+    .balloon {
+        background-color: #222;
+        padding: 20px;
+        border-radius: 15px;
+        margin: 20px 0;
+        font-size: 18px;
+        line-height: 1.6;
+        opacity: 0.9;
+        text-align: left;
+    }
+    h1, h2, h3 {
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+    p {
+        font-size: 18px;
+        line-height: 1.6;
+        opacity: 0.9;
+    }
+    button {
+        background-color: #0071e3;
+        color: white;
+        border: none;
+        padding: 15px 25px;
+        font-size: 18px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.3s ease-in-out;
+    }
+    button:hover {
+        background-color: #005bb5;
+    }
+    input {
+        padding: 15px;
+        font-size: 18px;
+        margin: 10px;
+        border: none;
+        border-radius: 10px;
+        text-align: center;
+        width: 60px;
+    }
+</style>
+</head>
+<body>
+<main>
+    <section id="textToBinary">
+        <h2>Conversor de Texto para Binário</h2>
+        <input type="text" id="textInput" placeholder="Digite um texto">
+        <button onclick="convertTextToBinary()">Converter</button>
+        <p>Resultado: <span id="textBinaryResult">...</span></p>
+    </section>
+
+    <script>
+        function convertTextToBinary() {
+            let text = document.getElementById("textInput").value;
+            let binaryResult = "";
+            for (let i = 0; i < text.length; i++) {
+                binaryResult += text[i].charCodeAt(0).toString(2).padStart(8, '0') + " ";
+            }
+            document.getElementById("textBinaryResult").innerText = binaryResult.trim();
+        }
+    </script>
+
+<main>
+    <section id="textToBinary">
+        <h2>Conversor de Binário para Texto</h2>
+        <input type="text" id="binaryInput" placeholder="Digite o binário">
+        <button onclick="convertBinaryToText()">Converter</button>
+        <p>Resultado: <span id="binaryTextResult">...</span></p>
+    </section>
+
+    <script>
+        function convertBinaryToText() {
+            let binaryInput = document.getElementById("binaryInput").value;
+            let binaryArray = binaryInput.split(" ");
+            let textResult = "";
+            
+            binaryArray.forEach(binary => {
+                let character = String.fromCharCode(parseInt(binary, 2));
+                textResult += character;
+            });
+            
+            document.getElementById("binaryTextResult").innerText = textResult;
+        }
+    </script>
+</main>
+
+
+</main>
+<footer>
+    <p>&copy; 2025 - Mundo Binário</p>
+</footer>
+        <section id="creatorHistory">
+            <h2>Gottfried Wilhelm Leibniz - O Criador do Código Binário</h2>
+            <p>Gottfried Wilhelm Leibniz (1646–1716) foi um filósofo, matemático e cientista alemão, considerado um dos mais influentes intelectuais do século XVII. Embora não tenha sido o único a explorar sistemas numéricos binários, Leibniz foi o responsável por formalizar e popularizar o uso do sistema binário moderno.</p>
+            <div class="balloon">📌 Leibniz descobriu que, com apenas dois números (0 e 1), era possível representar todas as operações matemáticas. Ele se baseou na ideia de que o sistema binário poderia ser usado para representar a lógica e a aritmética de uma forma mais simples e eficaz.</div>
+            <div class="balloon">📌 Em 1703, Leibniz publicou um artigo sobre o sistema binário, que se tornaria uma das bases para o desenvolvimento da computação moderna.</div>
+            <div class="balloon">📌 Sua proposta de usar dois valores (0 e 1) para representar todas as operações e números foi uma das grandes inovações da época e fez parte da construção das primeiras máquinas de calcular e dos primeiros computadores.</div>
+            <div class="balloon">📌 Leibniz também ficou conhecido por seu trabalho em filosofia, sendo uma das figuras-chave no desenvolvimento do cálculo diferencial e integral, ao lado de Isaac Newton.</div>
+            <p>Seu trabalho deixou um legado duradouro, e sua ideia de um sistema binário formaria a espinha dorsal de toda a computação digital moderna, que usa binário para representar números, texto e outros tipos de dados.</p>
+            <div class="media-container">
+                <img src="Gottfried_Wilhelm_von_Leibniz.jpg" alt="Gottfried Wilhelm Leibniz" onclick="alert('Gottfried Wilhelm Leibniz foi o criador do código binário.')" />
+            </div>
+            <h3>Vídeo sobre a utilização Código Binário</h3>
+            <div class="media-container">
+                <video width="800" controls>
+                    <source src="integrantes.mp4" type="video/mp4">
+                    Seu navegador não suporta o formato de vídeo.
+                </video>
+            </div>
+        </section>
+
+        <section id="creators">
+            <h3>Desenvolvedores deste Projeto</h3>
+            <p>Este projeto foi desenvolvido por:</p>
+            <p>Davi Leles Neitzel Schultz, Eric Butzlaff Assis, Pedro Henrique Grippa de Oliveira, Lorenzo Sossai Vieira e Robert Vagner dos Santos</p>
+            <h3>Fontes de Pesquisa</h3>
+            <a href=https://www.tecmundo.com.br/produto/207811-codigo-binario-funciona-linguagem-computadores.htm>Um link para Tech Mundo</a>
+            <a href=https://www.uol.com.br/tilt/faq/codigo-binario-como-dois-digitos-fazem-qualquer-maquina-funcionar.htm>Um link para UOL</a> 
+            <a href=https://www.todamateria.com.br/numeros-binarios/>Um link para Toda Materia</a> 
+
+ 
+
+        
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 - Mundo Binário</p>
+    </footer>
+</body>
+</html>
+
